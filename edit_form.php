@@ -87,10 +87,15 @@ class block_mistralagent_edit_form extends block_edit_form {
         $mform->addElement('html', $summarytable);
 
         // Preset selector.
-        $mform->addElement('header', 'config_header',
-            get_string('instanceconfig_header', 'block_mistralagent'));
+        $mform->addElement(
+            'header',
+            'config_header',
+            get_string('instanceconfig_header', 'block_mistralagent')
+        );
 
-        $mform->addElement('select', 'config_preset',
+        $mform->addElement(
+            'select',
+            'config_preset',
             get_string('config_preset', 'block_mistralagent'),
             $allowedoptions
         );
