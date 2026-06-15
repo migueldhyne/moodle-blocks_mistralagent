@@ -138,7 +138,6 @@ try {
 
     $text = trim($text);
     $respond(true, $text);
-
 } catch (Exception $e) {
     debugging('block_mistralagent extract_file_ajax: ' . $e->getMessage(), DEBUG_DEVELOPER);
     $respond(false, '', $e->getMessage());

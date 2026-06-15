@@ -241,7 +241,6 @@ class extract_file extends external_api {
                 'canpaste'  => false,
                 'error'     => '',
             ];
-
         } catch (\Exception $e) {
             debugging('block_mistralagent extract_file error [' . $filetype . ']: '
                 . $e->getMessage() . "\n" . $e->getTraceAsString(), DEBUG_DEVELOPER);

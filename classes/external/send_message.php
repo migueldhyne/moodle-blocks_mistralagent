@@ -61,12 +61,12 @@ class send_message extends external_api {
      * @return array
      */
     public static function execute(
-        int    $blockinstanceid,
-        int    $courseid,
+        int $blockinstanceid,
+        int $courseid,
         string $message,
-        int    $conversationid = 0,
-        string $filecontent    = '',
-        string $filename       = ''
+        int $conversationid = 0,
+        string $filecontent = '',
+        string $filename = ''
     ): array {
         global $USER, $DB;
 
@@ -113,7 +113,9 @@ class send_message extends external_api {
         $quota = manager::check_quota($USER->id, $blockinstanceid, $courseid);
         if (!$quota['allowed']) {
             return self::error_response(
-                get_string('quotaexceeded', 'block_mistralagent'), $conversationid, $quota
+                get_string('quotaexceeded', 'block_mistralagent'),
+                $conversationid,
+                $quota
             );
         }
 
@@ -124,7 +126,9 @@ class send_message extends external_api {
         $mistralagentid = manager::get_instance_mistral_agent_id($blockinstanceid);
         if (empty($mistralagentid)) {
             return self::error_response(
-                get_string('noagentconfigured', 'block_mistralagent'), $conversationid, $quota
+                get_string('noagentconfigured', 'block_mistralagent'),
+                $conversationid,
+                $quota
             );
         }
 
@@ -150,12 +154,18 @@ class send_message extends external_api {
             ]);
             if (!$conversation) {
                 $conversation = manager::get_or_create_conversation(
-                    $USER->id, $blockinstanceid, $courseid, $agentid
+                    $USER->id,
+                    $blockinstanceid,
+                    $courseid,
+                    $agentid
                 );
             }
         } else {
             $conversation = manager::get_or_create_conversation(
-                $USER->id, $blockinstanceid, $courseid, $agentid
+                $USER->id,
+                $blockinstanceid,
+                $courseid,
+                $agentid
             );
         }
 
@@ -232,7 +242,6 @@ class send_message extends external_api {
                 'conversationid' => (int)$conversation->id,
                 'quota'          => $quota,
             ];
-
         } catch (\Exception $e) {
             debugging('MistralAgent Error: ' . $e->getMessage(), DEBUG_DEVELOPER);
             return self::error_response(
