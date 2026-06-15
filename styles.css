@@ -1,0 +1,512 @@
+/**
+ * Scoped styles for block_mistralagent — v3.1 (2026).
+ *
+ * IMPORTANT: Bootstrap/Moodle overrides are scoped under plugin pages
+ * body[id^="page-blocks-mistralagent-"] or .block_mistralagent only.
+ * They must not affect the Moodle navbar, dashboard, courses or other plugins.
+ *
+ * @package    block_mistralagent
+ */
+
+/* ── Design tokens ───────────────────────────────────────────────────────── */
+
+body[id^="page-blocks-mistralagent-"],
+.block_mistralagent {
+    --ma-primary:          var(--primary, #0f6cbf);
+    --ma-primary-soft:     color-mix(in srgb, var(--ma-primary) 10%, #ffffff);
+    --ma-primary-softer:   color-mix(in srgb, var(--ma-primary)  5%, #ffffff);
+    --ma-primary-mid:      color-mix(in srgb, var(--ma-primary) 22%, transparent);
+    --ma-surface:          #ffffff;
+    --ma-surface-muted:    #f7f8fb;
+    --ma-surface-subtle:   #fbfcfe;
+    --ma-border:           rgba(15, 23, 42, .09);
+    --ma-border-strong:    rgba(15, 23, 42, .14);
+    --ma-text:             #172033;
+    --ma-muted:            #64748b;
+    --ma-shadow:           0 18px 50px rgba(15, 23, 42, .08);
+    --ma-shadow-soft:      0 8px 24px rgba(15, 23, 42, .06);
+    --ma-shadow-xs:        0 2px  8px rgba(15, 23, 42, .05);
+    --ma-radius-xl:        22px;
+    --ma-radius-lg:        16px;
+    --ma-radius-md:        12px;
+    --ma-radius-sm:        8px;
+    --ma-transition:       .16s ease;
+}
+
+@supports not (color: color-mix(in srgb, red 10%, white)) {
+    body[id^="page-blocks-mistralagent-"],
+    .block_mistralagent {
+        --ma-primary-soft:   #eef5fb;
+        --ma-primary-softer: #f7fbff;
+        --ma-primary-mid:    rgba(15, 108, 191, .22);
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════ */
+/*  Scope selector: all plugin pages have a predictable body id.              */
+/*  Declared once here to keep selectors DRY.                                */
+/*                                                                            */
+/*  body#page-blocks-mistralagent-* couvre :                                 */
+/*    resources, configure, agents, history, myconversations,                */
+/*    viewconversation, my_agents, settings, quotas, chat                    */
+/* ══════════════════════════════════════════════════════════════════════════ */
+
+/* All rules scoped under #region-main / #page-content,
+   ce qui exclut physiquement la navbar et le header Moodle. */
+body[id^="page-blocks-mistralagent-"] #region-main,
+body[id^="page-blocks-mistralagent-"] #page-content,
+body[id^="page-blocks-mistralagent-"] [role="main"],
+.block_mistralagent {
+
+    /* ── Agent banner ─────────────────────────────────────────────────── */
+
+    .mistralagent-agent-banner {
+        max-width: 1180px;
+        margin: 0 auto .9rem auto;
+        padding: .85rem 1rem;
+        background: linear-gradient(180deg, var(--ma-surface), var(--ma-surface-subtle));
+        border: 1px solid var(--ma-border);
+        border-radius: var(--ma-radius-xl);
+        box-shadow: var(--ma-shadow-soft);
+    }
+
+    .mistralagent-banner-visible {
+        display: flex;
+        align-items: center;
+        gap: .6rem;
+    }
+
+    .mistralagent-banner-name {
+        display: inline-flex;
+        align-items: center;
+        gap: .45rem;
+        color: var(--ma-text);
+        font-weight: 650;
+        letter-spacing: -.01em;
+    }
+
+    .mistralagent-banner-name .fa {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        margin-right: .15rem !important;
+        color: var(--ma-primary);
+        background: var(--ma-primary-soft);
+        border-radius: .75rem;
+    }
+
+    #mistralagent-quota {
+        margin-left: auto !important;
+        border-radius: 999px;
+        padding: .35rem .55rem;
+        background: #eef2f7 !important;
+        color: var(--ma-muted);
+        font-weight: 600;
+    }
+
+    .mistralagent-banner-toggle {
+        color: var(--ma-muted) !important;
+        text-decoration: none !important;
+        border-radius: 999px;
+        transition: background var(--ma-transition), color var(--ma-transition);
+    }
+    .mistralagent-banner-toggle:hover {
+        background: var(--ma-primary-soft);
+        color: var(--ma-primary) !important;
+    }
+
+    .mistralagent-agent-desc {
+        margin-top: .75rem;
+        padding: .8rem .9rem;
+        color: var(--ma-muted);
+        background: var(--ma-surface-muted);
+        border-radius: var(--ma-radius-md);
+        line-height: 1.55;
+        font-size: .9rem;
+    }
+
+    /* ── Nav tabs ─────────────────────────────────────────────────────── */
+
+    .nav-tabs {
+        border-bottom: 1px solid var(--ma-border) !important;
+        gap: .2rem;
+    }
+
+    .nav-tabs .nav-link {
+        border: 1px solid transparent !important;
+        border-bottom: none !important;
+        margin-bottom: -1px;
+        color: var(--ma-muted) !important;
+        font-weight: 500;
+        font-size: .9rem;
+        padding: .6rem 1rem;
+        border-radius: var(--ma-radius-md) var(--ma-radius-md) 0 0 !important;
+        transition: color var(--ma-transition), background var(--ma-transition);
+    }
+
+    .nav-tabs .nav-link:hover {
+        color: var(--ma-text) !important;
+        background: var(--ma-surface-muted);
+    }
+
+    .nav-tabs .nav-link.active {
+        color: var(--ma-primary) !important;
+        background: var(--ma-surface) !important;
+        border-color: var(--ma-border) var(--ma-border) var(--ma-surface) !important;
+        font-weight: 650;
+    }
+
+    /* ── Cards ────────────────────────────────────────────────────────── */
+
+    .card {
+        border: 1px solid var(--ma-border) !important;
+        border-radius: var(--ma-radius-lg) !important;
+        box-shadow: var(--ma-shadow-xs) !important;
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: var(--ma-surface-muted) !important;
+        border-bottom: 1px solid var(--ma-border) !important;
+        font-weight: 650;
+        font-size: .9rem;
+        color: var(--ma-text);
+        padding: .8rem 1.1rem !important;
+    }
+
+    .card-body { padding: 1.1rem !important; }
+
+    /* ── Tables ───────────────────────────────────────────────────────── */
+
+    .table {
+        font-size: .9rem;
+        color: var(--ma-text);
+        border-color: var(--ma-border) !important;
+    }
+
+    .table thead th {
+        font-size: .73rem;
+        font-weight: 700;
+        letter-spacing: .07em;
+        text-transform: uppercase;
+        color: var(--ma-muted);
+        background: var(--ma-surface-muted);
+        border-bottom: 2px solid var(--ma-border-strong) !important;
+        padding: .75rem 1rem !important;
+    }
+
+    .table td {
+        vertical-align: middle;
+        border-color: var(--ma-border) !important;
+        padding: .7rem 1rem !important;
+    }
+
+    .table tbody tr { transition: background var(--ma-transition); }
+    .table tbody tr:hover td { background: var(--ma-surface-subtle); }
+
+    /* ── Forms ────────────────────────────────────────────────────────── */
+
+    .form-control {
+        border: 1px solid var(--ma-border-strong) !important;
+        border-radius: var(--ma-radius-md) !important;
+        font-size: .9375rem;
+        color: var(--ma-text);
+        background: var(--ma-surface) !important;
+        box-shadow: inset 0 1px 2px rgba(15,23,42,.035) !important;
+        transition: border-color var(--ma-transition), box-shadow var(--ma-transition) !important;
+    }
+
+    .form-control:focus {
+        border-color: color-mix(in srgb, var(--ma-primary) 45%, transparent) !important;
+        box-shadow: 0 0 0 .18rem color-mix(in srgb, var(--ma-primary) 13%, transparent) !important;
+        background: var(--ma-surface) !important;
+    }
+
+    .form-control::placeholder { color: #a0aec0; }
+    select.form-control { background-color: var(--ma-surface) !important; }
+
+    /* ── Buttons ──────────────────────────────────────────────────────── */
+
+    .btn {
+        border-radius: var(--ma-radius-md) !important;
+        font-weight: 600;
+        transition: transform var(--ma-transition), filter var(--ma-transition), box-shadow var(--ma-transition) !important;
+    }
+
+    .btn-primary {
+        border: 0 !important;
+        box-shadow: 0 9px 20px var(--ma-primary-mid) !important;
+    }
+    .btn-primary:hover:not(:disabled) {
+        filter: brightness(1.04);
+        transform: translateY(-1px);
+        box-shadow: 0 13px 26px var(--ma-primary-mid) !important;
+    }
+    .btn-primary:active { transform: none !important; }
+    .btn-primary:disabled { opacity: .55; }
+
+    .btn-secondary {
+        color: var(--ma-text) !important;
+        background: var(--ma-surface-muted) !important;
+        border: 1px solid var(--ma-border-strong) !important;
+        box-shadow: var(--ma-shadow-xs) !important;
+    }
+    .btn-secondary:hover:not(:disabled) {
+        background: #eef2f7 !important;
+        transform: translateY(-1px);
+    }
+
+    .btn-outline-secondary {
+        color: var(--ma-muted) !important;
+        border-color: var(--ma-border-strong) !important;
+    }
+    .btn-outline-secondary:hover {
+        color: var(--ma-text) !important;
+        background: var(--ma-surface-muted) !important;
+    }
+
+    .btn-danger  { box-shadow: 0 6px 16px rgba(220,53,69,.22) !important; }
+    .btn-success { box-shadow: 0 6px 16px rgba(22,163,74,.22)  !important; }
+
+    /* ── Alerts ───────────────────────────────────────────────────────── */
+
+    .alert {
+        border-radius: var(--ma-radius-lg) !important;
+        border: 1px solid var(--ma-border) !important;
+        font-size: .9rem;
+        box-shadow: var(--ma-shadow-xs);
+    }
+
+    .alert-success { background: #f0fdf4 !important; border-color: #bbf7d0 !important; color: #166534 !important; }
+    .alert-danger  { background: #fff1f2 !important; border-color: #fecdd3 !important; color: #9f1239 !important; }
+    .alert-warning { background: #fffbeb !important; border-color: #fde68a !important; color: #92400e !important; }
+    .alert-info    { background: #eff6ff !important; border-color: #bfdbfe !important; color: #1e40af !important; }
+
+    /* ── Badges ───────────────────────────────────────────────────────── */
+
+    .badge {
+        border-radius: 999px !important;
+        font-weight: 600 !important;
+        letter-spacing: .02em;
+        padding: .3rem .6rem !important;
+    }
+
+    /* ── List groups (myconversations) ────────────────────────────────── */
+
+    .list-group-item {
+        border-color: var(--ma-border) !important;
+        transition: background var(--ma-transition), box-shadow var(--ma-transition), transform var(--ma-transition);
+    }
+
+    .list-group .list-group-item:first-child {
+        border-top-left-radius: var(--ma-radius-lg) !important;
+        border-top-right-radius: var(--ma-radius-lg) !important;
+    }
+    .list-group .list-group-item:last-child {
+        border-bottom-left-radius: var(--ma-radius-lg) !important;
+        border-bottom-right-radius: var(--ma-radius-lg) !important;
+    }
+
+    .list-group-item:hover {
+        background: var(--ma-surface-subtle) !important;
+        box-shadow: var(--ma-shadow-soft);
+        transform: translateX(2px);
+    }
+
+    .list-group-item h5 a {
+        color: var(--ma-text);
+        font-weight: 650;
+        text-decoration: none;
+        transition: color var(--ma-transition);
+    }
+    .list-group-item h5 a:hover { color: var(--ma-primary); }
+
+    /* ── Page-level card wrapper ──────────────────────────────────────── */
+
+    .mistralagent-page-card {
+        background: var(--ma-surface);
+        border: 1px solid var(--ma-border);
+        border-radius: var(--ma-radius-xl);
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--ma-shadow-soft);
+    }
+
+    @media (max-width: 576px) {
+        .mistralagent-page-card { padding: 1.25rem; border-radius: var(--ma-radius-lg); }
+    }
+
+} /* End block_mistralagent scoped styles. */
+
+
+/* ── Block widget styles (block.mustache) ──────────────────────────────────── */
+
+/*
+ * All rules are scoped under .block-mistralagent-container
+ * to never affect the Moodle navbar or other page elements.
+ *
+ * Layout sur 2 lignes :
+ *   Ligne 1 : [avatar] [nom de l'agent]          (toute la largeur)
+ *   Row 2: [Open chat button]    [admin icons]  (flex, button left, icons right)
+ *
+ * This 2-row layout avoids all overlap regardless of the block width
+ * (narrow sidebar, main column, or full-screen mobile).
+ */
+
+.block-mistralagent-container {
+    --ma-block-primary:      var(--primary, #0f6cbf);
+    --ma-block-primary-soft: color-mix(in srgb, var(--ma-block-primary) 10%, #ffffff);
+    --ma-block-border:       rgba(15, 23, 42, .09);
+    --ma-block-text:         #172033;
+    --ma-block-muted:        #64748b;
+}
+
+@supports not (color: color-mix(in srgb, red 10%, white)) {
+    .block-mistralagent-container { --ma-block-primary-soft: #eef5fb; }
+}
+
+.block-mistralagent-container {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    padding: .85rem 1rem;
+    color: var(--ma-block-text);
+    background: linear-gradient(180deg, #ffffff, #fbfcfe);
+    border: 1px solid var(--ma-block-border);
+    border-radius: 22px;
+    box-shadow: 0 14px 36px rgba(15, 23, 42, .075);
+}
+
+/* ── Ligne 1 : avatar + nom ─────────────────────────────────────────────── */
+
+.ma-agent-header {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    min-width: 0; /* allow text truncation */
+}
+
+.agent-avatar {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ma-block-primary);
+    background: var(--ma-block-primary-soft);
+    border: 1px solid color-mix(in srgb, var(--ma-block-primary) 18%, transparent);
+    border-radius: 11px;
+    font-size: 1rem;
+}
+
+@supports not (color: color-mix(in srgb, red 10%, white)) {
+    .agent-avatar {
+        border-color: rgba(15, 108, 191, .18);
+    }
+}
+
+.agent-name {
+    color: var(--ma-block-text);
+    font-size: .92rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+/* ── Row 2: chat button + admin icons ───────────────────────────────────── */
+
+.ma-toolbar {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    flex-wrap: nowrap; /* never wrap — all items have fixed sizes */
+}
+
+/* The button expands to fill the available space on the left. */
+.mistralagent-cta-button {
+    flex: 1 1 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    padding: .42rem .75rem;
+    color: #ffffff !important;
+    background: var(--ma-block-primary);
+    border-radius: 11px;
+    font-size: .84rem;
+    font-weight: 700;
+    text-decoration: none !important;
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 0;
+    box-shadow: 0 5px 14px color-mix(in srgb, var(--ma-block-primary) 22%, transparent);
+    transition: transform .15s ease, filter .15s ease, box-shadow .15s ease;
+}
+
+@supports not (color: color-mix(in srgb, red 10%, white)) {
+    .mistralagent-cta-button {
+        box-shadow: 0 5px 14px rgba(15, 108, 191, .22);
+    }
+}
+
+.mistralagent-cta-button span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mistralagent-cta-button:hover,
+.mistralagent-cta-button:focus {
+    color: #ffffff !important;
+    filter: brightness(1.04);
+    transform: translateY(-1px);
+    box-shadow: 0 9px 20px color-mix(in srgb, var(--ma-block-primary) 28%, transparent);
+}
+
+/* Admin icons: fixed size, never shrink. */
+.ma-admin-icons {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    flex-shrink: 0;
+}
+
+.admin-link {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    color: var(--ma-block-muted) !important;
+    background: #f7f8fb;
+    border: 1px solid rgba(15, 23, 42, .07);
+    border-radius: 9px;
+    text-decoration: none !important;
+    transition: background .15s ease, color .15s ease, transform .15s ease;
+}
+
+.admin-link:hover,
+.admin-link:focus {
+    color: var(--ma-block-primary) !important;
+    background: var(--ma-block-primary-soft);
+    transform: translateY(-1px);
+}
+
+/* ── Description (optionnelle) ──────────────────────────────────────────── */
+
+.agent-description {
+    padding: .6rem .8rem;
+    color: var(--ma-block-muted);
+    background: #f7f8fb;
+    border: 1px solid rgba(15, 23, 42, .06);
+    border-radius: 13px;
+    font-size: .875rem;
+    line-height: 1.5;
+}
