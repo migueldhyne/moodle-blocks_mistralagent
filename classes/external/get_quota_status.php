@@ -82,9 +82,9 @@ class get_quota_status extends external_api {
     public static function execute_returns(): external_single_structure {
         return new external_single_structure([
             'allowed'   => new external_value(PARAM_BOOL, 'Whether user can send more messages'),
-            'used'      => new external_value(PARAM_INT,  'Messages used'),
-            'limit'     => new external_value(PARAM_INT,  'Message limit', VALUE_OPTIONAL),
-            'remaining' => new external_value(PARAM_INT,  'Messages remaining', VALUE_OPTIONAL),
+            'used'      => new external_value(PARAM_INT, 'Messages used'),
+            'limit'     => new external_value(PARAM_INT, 'Message limit', VALUE_OPTIONAL),
+            'remaining' => new external_value(PARAM_INT, 'Messages remaining', VALUE_OPTIONAL),
             'unlimited' => new external_value(PARAM_BOOL, 'Whether quota is unlimited', VALUE_DEFAULT, false),
         ]);
     }

@@ -16,59 +16,59 @@
 
 namespace block_mistralagent\external;
 
-/*
- * Explicitly declare all native PHP functions used in this namespace to avoid
- * resolution ambiguities within this namespace.
- */
-use function tempnam;
-use function sys_get_temp_dir;
-use function file_put_contents;
-use function file_exists;
-use function unlink;
-use function base64_encode;
-use function base64_decode;
-use function json_encode;
-use function json_decode;
-use function is_array;
-use function strlen;
-use function substr;
-use function str_replace;
-use function str_starts_with;
-use function strip_tags;
-use function html_entity_decode;
-use function trim;
-use function implode;
-use function explode;
-use function in_array;
-use function strtolower;
-use function preg_match_all;
-use function preg_replace;
-use function preg_replace_callback;
-use function preg_match;
-use function round;
-use function chr;
-use function ord;
-use function octdec;
-use function hexdec;
-use function mb_chr;
-use function mb_ord;
-use function mb_strlen;
-use function mb_substr;
-use function gzuncompress;
-use function gzinflate;
-use function curl_init;
-use function curl_setopt_array;
-use function curl_exec;
-use function curl_getinfo;
-use function curl_close;
-use function get_config;
-use function pathinfo;
-use function array_filter;
-
 use core_external\external_api;
 use core_external\external_function_parameters;
 use core_external\external_single_structure;
 use core_external\external_value;
+
+/*
+ * Explicitly declare all native PHP functions used in this namespace to avoid
+ * resolution ambiguities within this namespace.
+ */
+use function array_filter;
+use function base64_decode;
+use function base64_encode;
+use function chr;
+use function curl_close;
+use function curl_exec;
+use function curl_getinfo;
+use function curl_init;
+use function curl_setopt_array;
+use function explode;
+use function file_exists;
+use function file_put_contents;
+use function get_config;
+use function gzinflate;
+use function gzuncompress;
+use function hexdec;
+use function html_entity_decode;
+use function implode;
+use function in_array;
+use function is_array;
+use function json_decode;
+use function json_encode;
+use function mb_chr;
+use function mb_ord;
+use function mb_strlen;
+use function mb_substr;
+use function octdec;
+use function ord;
+use function pathinfo;
+use function preg_match;
+use function preg_match_all;
+use function preg_replace;
+use function preg_replace_callback;
+use function round;
+use function str_replace;
+use function str_starts_with;
+use function strip_tags;
+use function strlen;
+use function strtolower;
+use function substr;
+use function sys_get_temp_dir;
+use function tempnam;
+use function trim;
+use function unlink;
 
 /**
  * Extract file content external function.
@@ -224,9 +224,13 @@ class extract_file extends external_api {
 
             // Soft cap: if set and exceeded, truncate and notify the JS layer.
             if (self::EXTRACTED_CHARS_LIMIT > 0 && strlen($extractedtext) > self::EXTRACTED_CHARS_LIMIT) {
+                $marker = get_string(
+                    'file_truncated_marker',
+                    'block_mistralagent',
+                    round(self::EXTRACTED_CHARS_LIMIT / 1000)
+                );
                 $extractedtext = substr($extractedtext, 0, self::EXTRACTED_CHARS_LIMIT)
-                    . "\n\n" . get_string('file_truncated_marker', 'block_mistralagent',
-                        round(self::EXTRACTED_CHARS_LIMIT / 1000));
+                    . "\n\n" . $marker;
                 $truncated = true;
             }
 
