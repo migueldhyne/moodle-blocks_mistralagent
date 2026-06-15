@@ -687,8 +687,11 @@ class resource_manager {
             $qratio = substr_count($text, '?') / max(1, strlen($text));
             if ($qratio > 0.03) {
                 $converted = @mb_convert_encoding($text, 'UTF-8', 'ISO-8859-1');
-                if ($converted && mb_check_encoding($converted, 'UTF-8')
-                    && substr_count($converted, '?') < substr_count($text, '?')) {
+                if (
+                    $converted &&
+                    mb_check_encoding($converted, 'UTF-8') &&
+                    substr_count($converted, '?') < substr_count($text, '?')
+                ) {
                     $text = $converted;
                 }
             }
@@ -1211,10 +1214,13 @@ class resource_manager {
         global $DB;
 
         $apikey    = \block_mistralagent\manager::get_instance_apikey($blockinstanceid);
-        $resources = $DB->get_records('block_mistralagent_resources', [
-            'blockinstanceid' => $blockinstanceid,
-            'status'   => 'indexed',
-        ]);
+        $resources = $DB->get_records(
+            'block_mistralagent_resources',
+            [
+                'blockinstanceid' => $blockinstanceid,
+                'status' => 'indexed',
+            ]
+        );
 
         if (empty($resources)) {
             return [];

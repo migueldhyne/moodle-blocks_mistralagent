@@ -542,8 +542,10 @@ class manager {
     public static function check_quota(int $userid, int $blockinstanceid, int $courseid = 0): array {
         global $DB;
 
-        $quota = $DB->get_record('block_mistralagent_quotas',
-            ['userid' => $userid, 'blockinstanceid' => $blockinstanceid]);
+        $quota = $DB->get_record(
+            'block_mistralagent_quotas',
+            ['userid' => $userid, 'blockinstanceid' => $blockinstanceid]
+        );
 
         $defaultlimit = get_config('block_mistralagent', 'defaultquota');
         $period       = get_config('block_mistralagent', 'quotaperiod');
@@ -586,8 +588,10 @@ class manager {
     public static function increment_quota(int $userid, int $blockinstanceid): bool {
         global $DB;
 
-        if (!$DB->record_exists('block_mistralagent_quotas',
-                ['userid' => $userid, 'blockinstanceid' => $blockinstanceid])) {
+        if (!$DB->record_exists(
+            'block_mistralagent_quotas',
+            ['userid' => $userid, 'blockinstanceid' => $blockinstanceid]
+        )) {
             return false;
         }
 
@@ -615,8 +619,10 @@ class manager {
         $context = \context_course::instance($courseid);
         require_capability('block/mistralagent:managequotas', $context);
 
-        $quota = $DB->get_record('block_mistralagent_quotas',
-            ['userid' => $userid, 'blockinstanceid' => $blockinstanceid]);
+        $quota = $DB->get_record(
+            'block_mistralagent_quotas',
+            ['userid' => $userid, 'blockinstanceid' => $blockinstanceid]
+        );
 
         if ($quota) {
             $quota->messages_limit = $limit;
