@@ -111,7 +111,10 @@ if (empty($users)) {
     echo html_writer::table($table);
 }
 
-echo html_writer::link(new moodle_url('/course/view.php', ['id' => $courseid]),
-    get_string('back'), ['class' => 'btn btn-secondary mt-3']);
+echo html_writer::link(
+    new moodle_url('/course/view.php', ['id' => $courseid]),
+    get_string('back'),
+    ['class' => 'btn btn-secondary mt-3']
+);
 
 echo $OUTPUT->footer();

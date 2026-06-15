@@ -116,8 +116,11 @@ if (empty($adminagents)) {
     echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'blockinstanceid', 'value' => $blockinstanceid]);
     echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid', 'value' => $courseid]);
 
-    echo html_writer::tag('label', get_string('selectagent', 'block_mistralagent'),
-        ['class' => 'font-weight-bold mb-2 d-block']);
+    echo html_writer::tag(
+        'label',
+        get_string('selectagent', 'block_mistralagent'),
+        ['class' => 'font-weight-bold mb-2 d-block']
+    );
     echo '<div class="row">';
     foreach ($adminagents as $agent) {
         $checked = ((int)$currentadminagentid === (int)$agent->id) ? ' checked' : '';
@@ -144,11 +147,21 @@ if (empty($adminagents)) {
     echo '</div>';
 
     echo html_writer::start_div('form-group mt-2');
-    echo html_writer::empty_tag('input', ['type' => 'submit', 'name' => 'save_admin',
-        'value' => get_string('savechanges'), 'class' => 'btn btn-primary']);
+    echo html_writer::empty_tag(
+        'input',
+        [
+            'type' => 'submit',
+            'name' => 'save_admin',
+            'value' => get_string('savechanges'),
+            'class' => 'btn btn-primary',
+        ]
+    );
     echo ' ';
-    echo html_writer::link(new moodle_url('/course/view.php', ['id' => $courseid]),
-        get_string('cancel'), ['class' => 'btn btn-secondary']);
+    echo html_writer::link(
+        new moodle_url('/course/view.php', ['id' => $courseid]),
+        get_string('cancel'),
+        ['class' => 'btn btn-secondary']
+    );
     echo html_writer::end_div();
     echo html_writer::end_tag('form');
 }
