@@ -71,8 +71,8 @@ if ($ADMIN->fulltree) {
     ));
 
     $periods = [
-        'daily'   => get_string('period_daily',   'block_mistralagent'),
-        'weekly'  => get_string('period_weekly',  'block_mistralagent'),
+        'daily'   => get_string('period_daily', 'block_mistralagent'),
+        'weekly'  => get_string('period_weekly', 'block_mistralagent'),
         'monthly' => get_string('period_monthly', 'block_mistralagent'),
     ];
     $settings->add(new admin_setting_configselect(
@@ -166,16 +166,16 @@ if ($ADMIN->fulltree) {
     ));
 
     $presetoptions = [
-        'light'    => get_string('preset_light',    'block_mistralagent'),
+        'light'    => get_string('preset_light', 'block_mistralagent'),
         'standard' => get_string('preset_standard', 'block_mistralagent'),
-        'full'     => get_string('preset_full',     'block_mistralagent'),
+        'full'     => get_string('preset_full', 'block_mistralagent'),
     ];
 
     $settings->add(new admin_setting_configselect(
         'block_mistralagent/max_preset',
         get_string('max_preset', 'block_mistralagent'),
         get_string('max_preset_desc', 'block_mistralagent'),
-        'standard',   // Default max: teachers can choose light or standard.
+        'standard', // Default max: teachers can choose light or standard.
         $presetoptions
     ));
 

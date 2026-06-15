@@ -56,7 +56,7 @@ require_once($CFG->dirroot . '/blocks/mistralagent/classes/external/extract_file
 
 header('Content-Type: application/json; charset=utf-8');
 
-$respond = function(bool $success, string $text = '', string $error = '', bool $truncated = false) {
+$respond = function (bool $success, string $text = '', string $error = '', bool $truncated = false) {
     echo json_encode([
         'success'   => $success,
         'text'      => $text,
@@ -73,7 +73,7 @@ try {
     require_sesskey();
 
     $blockinstanceid = required_param('blockinstanceid', PARAM_INT);
-    $courseid        = required_param('courseid',        PARAM_INT);
+    $courseid        = required_param('courseid', PARAM_INT);
 
     $course  = get_course($courseid);
     $context = context_course::instance($courseid);
@@ -82,11 +82,11 @@ try {
     // Uploaded file.
     if (empty($_FILES['userfile']) || $_FILES['userfile']['error'] !== UPLOAD_ERR_OK) {
         $errcodes = [
-            UPLOAD_ERR_INI_SIZE   => get_string('err_upload_ini_size',   'block_mistralagent'),
-            UPLOAD_ERR_FORM_SIZE  => get_string('err_upload_form_size',  'block_mistralagent'),
-            UPLOAD_ERR_PARTIAL    => get_string('err_upload_partial',    'block_mistralagent'),
-            UPLOAD_ERR_NO_FILE    => get_string('err_upload_no_file',    'block_mistralagent'),
-            UPLOAD_ERR_NO_TMP_DIR => get_string('err_upload_no_tmp',     'block_mistralagent'),
+            UPLOAD_ERR_INI_SIZE   => get_string('err_upload_ini_size', 'block_mistralagent'),
+            UPLOAD_ERR_FORM_SIZE  => get_string('err_upload_form_size', 'block_mistralagent'),
+            UPLOAD_ERR_PARTIAL    => get_string('err_upload_partial', 'block_mistralagent'),
+            UPLOAD_ERR_NO_FILE    => get_string('err_upload_no_file', 'block_mistralagent'),
+            UPLOAD_ERR_NO_TMP_DIR => get_string('err_upload_no_tmp', 'block_mistralagent'),
             UPLOAD_ERR_CANT_WRITE => get_string('err_upload_cant_write', 'block_mistralagent'),
         ];
         $code = $_FILES['userfile']['error'] ?? UPLOAD_ERR_NO_FILE;
@@ -115,7 +115,7 @@ try {
     if (in_array($ext, $imagetypes, true)) {
         // Images : on construit la data-URI et on retourne le sentinel.
         $mimemap = ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg',
-                    'png' => 'image/png',  'gif'  => 'image/gif',
+                    'png' => 'image/png', 'gif'  => 'image/gif',
                     'webp' => 'image/webp'];
         $mime    = $mimemap[$ext];
         $b64     = base64_encode($data);

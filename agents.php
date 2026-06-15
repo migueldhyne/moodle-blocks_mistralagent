@@ -367,7 +367,7 @@ if ($action === 'add' || $action === 'edit') {
 }
 
 $PAGE->requires->js_amd_inline('
-require(["jquery"], function($) {
+require(["jquery"], function ($) {
     $("#btn-toggle-key").on("click", function() {
         var inp = $("#apikey-input");
         var eye = $("#eye-icon");

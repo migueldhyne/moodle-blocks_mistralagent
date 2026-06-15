@@ -31,7 +31,7 @@ use block_mistralagent\manager;
 use block_mistralagent\mistral_client;
 
 $blockinstanceid = required_param('blockinstanceid', PARAM_INT);
-$courseid        = required_param('courseid',        PARAM_INT);
+$courseid        = required_param('courseid', PARAM_INT);
 
 $course = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
 require_login($course);
@@ -73,7 +73,7 @@ if (optional_param('save_key', false, PARAM_BOOL) && confirm_sesskey()) {
 // Sauvegarde de l'agent choisi.
 if (optional_param('save_agent', false, PARAM_BOOL) && confirm_sesskey()) {
     // Mistral agent IDs are alphanumeric identifiers — PARAM_ALPHANUM is sufficient.
-    $agentid   = trim(required_param('custom_agent_id',   PARAM_ALPHANUM));
+    $agentid   = trim(required_param('custom_agent_id', PARAM_ALPHANUM));
     $agentname = trim(required_param('custom_agent_name', PARAM_TEXT));
     $agentdesc = trim(optional_param('custom_agent_desc', '', PARAM_TEXT));
 
@@ -192,10 +192,10 @@ if ($hassavedkey) {
 
     // Form to fetch agents using the saved key.
     echo html_writer::start_tag('form', ['method' => 'post', 'class' => 'form-inline mb-3']);
-    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey',         'value' => sesskey()]);
+    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()]);
     echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'blockinstanceid', 'value' => $blockinstanceid]);
-    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid',        'value' => $courseid]);
-    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'apikey_input',    'value' => '']);
+    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid', 'value' => $courseid]);
+    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'apikey_input', 'value' => '']);
     echo '<button type="submit" name="fetch_agents" value="1" class="btn btn-primary mr-2">'
         . '<i class="fa fa-search mr-1"></i>'
         . get_string('fetch_agents_saved', 'block_mistralagent') . '</button>';
@@ -203,9 +203,9 @@ if ($hassavedkey) {
     // Link to delete the saved key.
     $deleteconfirm = str_replace("'", "\\'", get_string('confirm_delete_user_key', 'block_mistralagent'));
     echo html_writer::start_tag('form', ['method' => 'post', 'class' => 'form-inline d-inline']);
-    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey',         'value' => sesskey()]);
+    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()]);
     echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'blockinstanceid', 'value' => $blockinstanceid]);
-    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid',        'value' => $courseid]);
+    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid', 'value' => $courseid]);
     echo '<button type="submit" name="delete_key" value="1" class="btn btn-outline-danger btn-sm"'
         . ' onclick="return confirm(\'' . $deleteconfirm . '\')">'
         . '<i class="fa fa-trash mr-1"></i>'
@@ -222,9 +222,9 @@ if ($hassavedkey) {
 
 // Form to enter a (new) API key.
 echo html_writer::start_tag('form', ['method' => 'post', 'class' => 'mform']);
-echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey',         'value' => sesskey()]);
+echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()]);
 echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'blockinstanceid', 'value' => $blockinstanceid]);
-echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid',        'value' => $courseid]);
+echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid', 'value' => $courseid]);
 
 echo html_writer::start_div('form-group row');
 echo html_writer::tag('label', get_string('own_apikey_label', 'block_mistralagent'),
@@ -270,11 +270,11 @@ if (!empty($fetchedagents)) {
     echo '<div class="card-body">';
 
     echo html_writer::start_tag('form', ['method' => 'post', 'class' => 'mform']);
-    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey',         'value' => sesskey()]);
+    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()]);
     echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'blockinstanceid', 'value' => $blockinstanceid]);
-    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid',        'value' => $courseid]);
+    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid', 'value' => $courseid]);
     // The key is NOT transmitted here — it is already saved for the user.
-    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'apikey',          'value' => '']);
+    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'apikey', 'value' => '']);
     echo html_writer::empty_tag('input',
         ['type' => 'hidden', 'name' => 'custom_agent_id', 'id' => 'hidden-agent-id', 'value' => '']);
     echo html_writer::empty_tag('input',
@@ -327,7 +327,7 @@ if (!empty($fetchedagents)) {
 }
 
 $PAGE->requires->js_amd_inline('
-require(["jquery"], function($) {
+require(["jquery"], function ($) {
     $("#btn-toggle-key").on("click", function() {
         var inp = $("#apikey-input");
         var eye = $("#eye-icon");

@@ -27,7 +27,7 @@ require_once('../../config.php');
 use block_mistralagent\manager;
 
 $blockinstanceid = required_param('blockinstanceid', PARAM_INT);
-$courseid        = required_param('courseid',        PARAM_INT);
+$courseid        = required_param('courseid', PARAM_INT);
 
 $course = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
 require_login($course);
@@ -112,9 +112,9 @@ if (empty($adminagents)) {
     echo $OUTPUT->notification(get_string('noagents', 'block_mistralagent'), 'warning');
 } else {
     echo html_writer::start_tag('form', ['method' => 'post', 'class' => 'mform']);
-    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey',         'value' => sesskey()]);
+    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()]);
     echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'blockinstanceid', 'value' => $blockinstanceid]);
-    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid',        'value' => $courseid]);
+    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid', 'value' => $courseid]);
 
     echo html_writer::tag('label', get_string('selectagent', 'block_mistralagent'),
         ['class' => 'font-weight-bold mb-2 d-block']);
@@ -179,9 +179,9 @@ echo '<a href="' . $myagentsurl->out(false) . '" class="btn btn-primary mr-2">'
 // Button to deselect the personal agent and revert to admin agents.
 if ($usecustom) {
     echo html_writer::start_tag('form', ['method' => 'post', 'class' => 'd-inline']);
-    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey',         'value' => sesskey()]);
+    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()]);
     echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'blockinstanceid', 'value' => $blockinstanceid]);
-    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid',        'value' => $courseid]);
+    echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid', 'value' => $courseid]);
     $deselectlabel   = get_string('deselect_custom_agent', 'block_mistralagent');
     $deselectconfirm = get_string('confirm_deselect_custom', 'block_mistralagent');
     $deselectconfirm = str_replace("'", "\'", $deselectconfirm);

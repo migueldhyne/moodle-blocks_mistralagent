@@ -40,9 +40,9 @@ const UPLOAD_MAGIC = [
 // Parameters.
 
 $blockinstanceid = required_param('blockinstanceid', PARAM_INT);
-$courseid        = required_param('courseid',   PARAM_INT);
-$action     = optional_param('action',     '', PARAM_ALPHA);
-$resourceid = optional_param('resourceid', 0,  PARAM_INT);
+$courseid        = required_param('courseid', PARAM_INT);
+$action     = optional_param('action', '', PARAM_ALPHA);
+$resourceid = optional_param('resourceid', 0, PARAM_INT);
 
 // Access control.
 
@@ -163,7 +163,7 @@ function mistralagent_index_text_chunks(int $resourceid, string $text): int {
     global $DB;
 
     $DB->set_field('block_mistralagent_resources', 'status', 'processing', ['id' => $resourceid]);
-    $DB->set_field('block_mistralagent_resources', 'error_message', null,   ['id' => $resourceid]);
+    $DB->set_field('block_mistralagent_resources', 'error_message', null, ['id' => $resourceid]);
 
     $chunks = resource_manager::split_into_chunks($text);
     if (empty($chunks)) {
@@ -185,8 +185,8 @@ function mistralagent_index_text_chunks(int $resourceid, string $text): int {
         $DB->insert_record('block_mistralagent_chunks', $rec);
     }
 
-    $DB->set_field('block_mistralagent_resources', 'status',       'indexed', ['id' => $resourceid]);
-    $DB->set_field('block_mistralagent_resources', 'timemodified', $now,      ['id' => $resourceid]);
+    $DB->set_field('block_mistralagent_resources', 'status', 'indexed', ['id' => $resourceid]);
+    $DB->set_field('block_mistralagent_resources', 'timemodified', $now, ['id' => $resourceid]);
 
     return count($chunks);
 }
@@ -325,7 +325,7 @@ if ($action === 'manualtext' && $resourceid && confirm_sesskey()) {
         $count = mistralagent_index_text_chunks($resourceid, $manualtext);
         redirect($PAGE->url, get_string('indexed_success', 'block_mistralagent', $count));
     } catch (\Exception $e) {
-        $DB->set_field('block_mistralagent_resources', 'status',        'error',      ['id' => $resourceid]);
+        $DB->set_field('block_mistralagent_resources', 'status', 'error', ['id' => $resourceid]);
         $DB->set_field('block_mistralagent_resources', 'error_message', $e->getMessage(), ['id' => $resourceid]);
         redirect($PAGE->url,
             get_string('error') . ' : ' . $e->getMessage(),
@@ -341,7 +341,7 @@ if ($action === 'upload' && confirm_sesskey()) {
 
     // URL.
     if ($type === 'url') {
-        $url  = required_param('url',  PARAM_URL);
+        $url  = required_param('url', PARAM_URL);
         $name = optional_param('name', '', PARAM_TEXT) ?: parse_url($url, PHP_URL_HOST);
 
         $newresourceid = resource_manager::add_resource($blockinstanceid, $courseid, 'url', $name, $url);
@@ -506,8 +506,8 @@ echo '<ul class="nav nav-tabs mb-3" id="resourceTabs" role="tablist">';
 $tabs = [
     'json' => '<i class="fa fa-star text-warning" aria-hidden="true"></i> JSON',
     'text' => get_string('tab_directtext', 'block_mistralagent'),
-    'file' => get_string('tab_file',       'block_mistralagent'),
-    'url'  => get_string('tab_url',        'block_mistralagent'),
+    'file' => get_string('tab_file', 'block_mistralagent'),
+    'url'  => get_string('tab_url', 'block_mistralagent'),
 ];
 $first = true;
 foreach ($tabs as $tabid => $label) {
@@ -586,7 +586,7 @@ echo '</div>';
 echo '</form>';
 echo '</div>';
 
-$ocrjs = 'require([], function() {
+$ocrjs = 'require([], function () {
     function mistralagentUpdateOcrVisibility() {
         var sel = document.getElementById("select-file-type");
         var div = document.getElementById("ocr-option");
@@ -596,7 +596,7 @@ $ocrjs = 'require([], function() {
     }
     window.mistralagentUpdateOcrVisibility = mistralagentUpdateOcrVisibility;
     document.addEventListener("DOMContentLoaded", mistralagentUpdateOcrVisibility);
-    document.querySelectorAll("[data-toggle=\'tab\'], [data-bs-toggle=\'tab\']").forEach(function(el) {
+    document.querySelectorAll("[data-toggle=\'tab\'], [data-bs-toggle=\'tab\']").forEach(function (el) {
         el.addEventListener("shown.bs.tab", mistralagentUpdateOcrVisibility);
     });
 });';
@@ -630,7 +630,7 @@ if (empty($resources)) {
     $table                      = new html_table();
     $table->head                = [
         get_string('name'),
-        get_string('type',   'block_mistralagent'),
+        get_string('type', 'block_mistralagent'),
         get_string('status', 'block_mistralagent'),
         get_string('chunks', 'block_mistralagent'),
         get_string('quality', 'block_mistralagent'),

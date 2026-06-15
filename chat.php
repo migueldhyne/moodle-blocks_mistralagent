@@ -41,8 +41,8 @@ use block_mistralagent\manager;
 
 $blockinstanceid = required_param('blockinstanceid', PARAM_INT);
 $courseid        = required_param('courseid', PARAM_INT);
-$convid   = optional_param('convid',   0, PARAM_INT);
-$newconv  = optional_param('newconv',  0, PARAM_INT);
+$convid   = optional_param('convid', 0, PARAM_INT);
+$newconv  = optional_param('newconv', 0, PARAM_INT);
 
 // Access control.
 
@@ -179,9 +179,9 @@ $PAGE->requires->strings_for_js([
     'generated_image_alt',
 ], 'block_mistralagent');
 // Core strings (different component).
-$PAGE->requires->string_for_js('cancel',  'core');
+$PAGE->requires->string_for_js('cancel', 'core');
 $PAGE->requires->string_for_js('confirm', 'core');
-$PAGE->requires->string_for_js('back',    'core');
+$PAGE->requires->string_for_js('back', 'core');
 
 // Only courseid and conversationid in the AMD payload (~60 chars).
 $PAGE->requires->js_call_amd('block_mistralagent/chat', 'init', [[

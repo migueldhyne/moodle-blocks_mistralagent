@@ -588,10 +588,11 @@ class manager {
     public static function increment_quota(int $userid, int $blockinstanceid): bool {
         global $DB;
 
-        if (!$DB->record_exists(
+        $quotaexists = $DB->record_exists(
             'block_mistralagent_quotas',
             ['userid' => $userid, 'blockinstanceid' => $blockinstanceid]
-        )) {
+        );
+        if (!$quotaexists) {
             return false;
         }
 

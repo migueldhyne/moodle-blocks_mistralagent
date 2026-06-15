@@ -29,9 +29,9 @@ use block_mistralagent\manager;
 
 // Parameters.
 
-$courseid        = required_param('courseid',        PARAM_INT);
+$courseid        = required_param('courseid', PARAM_INT);
 $blockinstanceid = optional_param('blockinstanceid', 0, PARAM_INT);
-$userid          = optional_param('userid',          0, PARAM_INT);
+$userid          = optional_param('userid', 0, PARAM_INT);
 
 // Access control.
 
@@ -88,7 +88,7 @@ foreach ($enrolledusers as $user) {
 }
 
 echo html_writer::start_tag('form', ['method' => 'get', 'class' => 'form-inline mb-3']);
-echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid',        'value' => $courseid]);
+echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid', 'value' => $courseid]);
 echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'blockinstanceid', 'value' => $blockinstanceid]);
 echo html_writer::tag('label',
     get_string('student', 'block_mistralagent') . ' : ',
@@ -143,9 +143,9 @@ if (empty($conversations)) {
 } else {
     $table                      = new html_table();
     $table->head                = [
-        get_string('student',          'block_mistralagent'),
-        get_string('messages',         'block_mistralagent'),
-        get_string('lastactivity',     'block_mistralagent'),
+        get_string('student', 'block_mistralagent'),
+        get_string('messages', 'block_mistralagent'),
+        get_string('lastactivity', 'block_mistralagent'),
         get_string('actions'),
     ];
     $table->attributes['class'] = 'table table-striped';

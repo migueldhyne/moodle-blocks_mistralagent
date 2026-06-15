@@ -136,7 +136,7 @@ class extract_file extends external_api {
      */
     public static function execute_parameters(): external_function_parameters {
         return new external_function_parameters([
-            'filename'    => new external_value(PARAM_FILE,  'File name'),
+            'filename'    => new external_value(PARAM_FILE, 'File name'),
             'filecontent' => new external_value(PARAM_RAW, 'Base64-encoded file content'),
             'filetype'    => new external_value(PARAM_ALPHA, 'File type (pdf, docx, txt, json, jpg, jpeg, png, gif, webp)'),
         ]);
@@ -190,7 +190,7 @@ class extract_file extends external_api {
             if (in_array($filetype, $imagetypes, true)) {
                 // Rebuild the full data-URI if the prefix was stripped.
                 $mimemap = ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg',
-                            'png' => 'image/png',  'gif'  => 'image/gif',
+                            'png' => 'image/png', 'gif'  => 'image/gif',
                             'webp' => 'image/webp'];
                 $mime    = $mimemap[$filetype] ?? 'image/jpeg';
                 // Stocker le base64 pur pour que send_message.php le passe en image_url.
@@ -232,7 +232,7 @@ class extract_file extends external_api {
 
             return [
                 'success'   => true,
-                'text'      => $extractedtext,   // The JS reads resp.text.
+                'text'      => $extractedtext, // The JS reads resp.text.
                 'truncated' => $truncated,
                 'canpaste'  => false,
                 'error'     => '',
@@ -379,10 +379,10 @@ class extract_file extends external_api {
             }
 
             // Map XML structural elements to whitespace before stripping tags.
-            $xml  = str_replace('</w:p>',  "\n", $xml);
+            $xml  = str_replace('</w:p>', "\n", $xml);
             $xml  = str_replace('</w:tr>', "\n", $xml);
             $xml  = str_replace('<w:tab/>', "\t", $xml);
-            $xml  = str_replace('<w:br/>',  "\n", $xml);
+            $xml  = str_replace('<w:br/>', "\n", $xml);
             $text = strip_tags($xml);
             $text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
             $text = preg_replace('/[ \t]+/', ' ', $text);
@@ -697,7 +697,7 @@ class extract_file extends external_api {
 
         return str_replace(
             ['\\n', '\\r', '\\t', '\\b', '\\f', '\\(', '\\)', '\\\\'],
-            ["\n",  "\r",  "\t",  "\b",  "\f",  '(',   ')',   '\\'],
+            ["\n", "\r", "\t", "\b", "\f", '(', ')', '\\'],
             $str
         );
     }
@@ -789,7 +789,7 @@ class extract_file extends external_api {
         // Fix common Mojibake sequences from Latin-1 mis-decoded as UTF-8.
         $text = str_replace(
             ['Â ', 'â€™', 'â€"', 'â€œ', 'â€'],
-            [' ',  "'",   '-',   '"',   '"'],
+            [' ', "'", '-', '"', '"'],
             $text
         );
 

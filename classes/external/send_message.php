@@ -215,7 +215,7 @@ class send_message extends external_api {
             }
 
             try {
-                manager::add_message($conversation->id, 'user',      $savedmessage);
+                manager::add_message($conversation->id, 'user', $savedmessage);
                 manager::add_message($conversation->id, 'assistant', $response);
             } catch (\Exception $e) {
                 debugging('MistralAgent: Failed to save messages: ' . $e->getMessage(), DEBUG_DEVELOPER);
@@ -258,12 +258,12 @@ class send_message extends external_api {
                 VALUE_DEFAULT,
                 []
             ),
-            'conversationid' => new external_value(PARAM_INT,  'Conversation ID'),
+            'conversationid' => new external_value(PARAM_INT, 'Conversation ID'),
             'quota'          => new external_single_structure([
                 'allowed'   => new external_value(PARAM_BOOL, 'Whether user can send more messages'),
-                'used'      => new external_value(PARAM_INT,  'Messages used'),
-                'limit'     => new external_value(PARAM_INT,  'Message limit', VALUE_OPTIONAL),
-                'remaining' => new external_value(PARAM_INT,  'Messages remaining', VALUE_OPTIONAL),
+                'used'      => new external_value(PARAM_INT, 'Messages used'),
+                'limit'     => new external_value(PARAM_INT, 'Message limit', VALUE_OPTIONAL),
+                'remaining' => new external_value(PARAM_INT, 'Messages remaining', VALUE_OPTIONAL),
                 'unlimited' => new external_value(PARAM_BOOL, 'Whether quota is unlimited', VALUE_DEFAULT, false),
             ]),
         ]);

@@ -655,13 +655,13 @@ class resource_manager {
      * @return string
      */
     private static function decode_pdf_escape(string $str): string {
-        $str = preg_replace_callback('/\\\\([0-7]{1,3})/', function($m) {
+        $str = preg_replace_callback('/\\\\([0-7]{1,3})/', function ($m) {
             return chr(octdec($m[1]));
         }, $str);
 
         $str = str_replace(
             ['\\n', '\\r', '\\t', '\\b', '\\f', '\\(', '\\)', '\\\\'],
-            ["\n",  "\r",  "\t",  "\b",  "\f",  '(',   ')',   '\\'],
+            ["\n", "\r", "\t", "\b", "\f", '(', ')', '\\'],
             $str
         );
 
