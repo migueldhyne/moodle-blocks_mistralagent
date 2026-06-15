@@ -789,7 +789,6 @@ class resource_manager {
             }
 
             return trim($text);
-
         } finally {
             // Always clean up the temp file, even on exception.
             if (file_exists($tempfile)) {
@@ -895,7 +894,6 @@ class resource_manager {
             if (empty(array_filter($texts))) {
                 $texts = self::extract_all_strings($data);
             }
-
         } else if (is_string($data)) {
             $texts[] = $data;
         }
@@ -954,13 +952,14 @@ class resource_manager {
 
         // Block requests to loopback and RFC-1918 private ranges (SSRF protection).
         $host = $parsed['host'] ?? '';
-        if (preg_match(
+        $isprivate = preg_match(
             '/^(localhost|127\.\d+\.\d+\.\d+|::1'
             . '|10\.\d+\.\d+\.\d+'
             . '|192\.168\.\d+\.\d+'
             . '|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)/i',
             $host
-        )) {
+        );
+        if ($isprivate) {
             throw new \Exception("URL not allowed: local or private address rejected");
         }
 
@@ -1227,7 +1226,7 @@ class resource_manager {
         }
 
         $resourceids      = array_keys($resources);
-        list($insql, $params) = $DB->get_in_or_equal($resourceids, SQL_PARAMS_NAMED);
+        [$insql, $params] = $DB->get_in_or_equal($resourceids, SQL_PARAMS_NAMED);
 
         $chunks = $DB->get_records_select('block_mistralagent_chunks', "resourceid {$insql}", $params);
 

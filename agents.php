@@ -317,7 +317,6 @@ if ($action === 'add' || $action === 'edit') {
     echo html_writer::end_div();
 
     echo html_writer::end_tag('form');
-
 } else {
     // Show agents list.
     echo html_writer::tag('p', html_writer::link(

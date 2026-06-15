@@ -98,7 +98,7 @@ class new_conversation extends external_api {
     public static function execute_returns(): external_single_structure {
         return new external_single_structure([
             'success'        => new external_value(PARAM_BOOL, 'Success status'),
-            'conversationid' => new external_value(PARAM_INT,  'New conversation ID'),
+            'conversationid' => new external_value(PARAM_INT, 'New conversation ID'),
             'error'          => new external_value(PARAM_TEXT, 'Error message if any'),
         ]);
     }

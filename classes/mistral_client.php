@@ -196,7 +196,7 @@ class mistral_client {
             'messages'   => [[
                 'role'    => 'user',
                 'content' => [
-                    ['type' => 'text',      'text'      => $prompt],
+                    ['type' => 'text', 'text' => $prompt],
                     ['type' => 'image_url', 'image_url' => ['url' => $imagebase64]],
                 ],
             ]],

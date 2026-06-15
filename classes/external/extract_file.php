@@ -394,7 +394,6 @@ class extract_file extends external_api {
             }
 
             return $text;
-
         } finally {
             // Always remove the temp file, even if an exception was thrown.
             if (file_exists($tempfile)) {
