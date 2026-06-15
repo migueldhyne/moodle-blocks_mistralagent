@@ -25,7 +25,6 @@ namespace block_mistralagent;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class resource_manager {
-
     /** @var int Maximum chunk size in characters (roughly 400-500 tokens) */
     const CHUNK_SIZE = 1500;
 
@@ -163,8 +162,14 @@ class resource_manager {
      * @param int|null $filesize
      * @return int New resource ID.
      */
-    public static function add_resource(int $blockinstanceid, int $courseid, string $type,
-            string $name, string $source, ?int $filesize = null): int {
+    public static function add_resource(
+        int $blockinstanceid,
+        int $courseid,
+        string $type,
+        string $name,
+        string $source,
+        ?int $filesize = null
+    ): int {
         global $DB, $USER;
 
         $record = new \stdClass();
@@ -271,7 +276,8 @@ class resource_manager {
             if ($contentlength > $maxcontent) {
                 self::debug_message(
                     "MistralAgent: Content too large ({$contentlength}), truncating to {$maxcontent}",
-                    DEBUG_DEVELOPER);
+                    DEBUG_DEVELOPER
+                );
                 $content = substr($content, 0, $maxcontent) . "\n\n[... content truncated for RAG ...]";
             }
 
@@ -332,7 +338,8 @@ class resource_manager {
                     } catch (\Exception $e) {
                         self::debug_message(
                             "MistralAgent: Embedding failed for chunk {$index}: " . $e->getMessage(),
-                            DEBUG_DEVELOPER);
+                            DEBUG_DEVELOPER
+                        );
                     }
                 }
 
@@ -359,7 +366,6 @@ class resource_manager {
 
             self::debug_message("MistralAgent: Resource {$resourceid} indexed successfully", DEBUG_DEVELOPER);
             return true;
-
         } catch (\Exception $e) {
             $errormsg = $e->getMessage();
             self::debug_message("MistralAgent: Error processing resource {$resourceid}: {$errormsg}", DEBUG_DEVELOPER);
@@ -440,8 +446,11 @@ class resource_manager {
      * @param  string $apikeyoverride Optional explicit API key override.
      * @return string              Extracted text, or empty string on failure.
      */
-    private static function ocr_via_mistral(string $pdfcontent,
-            string $filename = 'document.pdf', string $apikeyoverride = ''): string {
+    private static function ocr_via_mistral(
+        string $pdfcontent,
+        string $filename = 'document.pdf',
+        string $apikeyoverride = ''
+    ): string {
         $apikey = !empty($apikeyoverride) ? $apikeyoverride : get_config('block_mistralagent', 'apikey');
         if (empty($apikey)) {
             self::debug_message('MistralAgent OCR: missing API key', DEBUG_DEVELOPER);
@@ -501,7 +510,8 @@ class resource_manager {
         $text = trim($text);
         self::debug_message(
             "MistralAgent OCR: success — " . strlen($text) . " characters extracted from {$filename}",
-            DEBUG_DEVELOPER);
+            DEBUG_DEVELOPER
+        );
         return $text;
     }
 
@@ -561,7 +571,8 @@ class resource_manager {
         if (!$useocr && $nativepoor && $apikey !== '') {
             self::debug_message(
                 "MistralAgent: OCR Mistral enabled: native text insufficient for {$filename}",
-                DEBUG_DEVELOPER);
+                DEBUG_DEVELOPER
+            );
             $ocrtext = self::ocr_via_mistral($content, $filename, $apikey);
             if (!empty($ocrtext) && self::is_valid_content($ocrtext) && strlen($ocrtext) > strlen($text)) {
                 self::debug_message("MistralAgent: OCR Mistral selected — " . strlen($ocrtext) . " chars", DEBUG_DEVELOPER);

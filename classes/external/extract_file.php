@@ -138,8 +138,7 @@ class extract_file extends external_api {
     public static function execute_parameters(): external_function_parameters {
         return new external_function_parameters([
             'filename'    => new external_value(PARAM_FILE,  'File name'),
-            'filecontent' => new external_value(PARAM_RAW,
-                'Base64-encoded file content — PARAM_RAW required for binary/base64 data'),
+            'filecontent' => new external_value(PARAM_RAW, 'Base64-encoded file content'),
             'filetype'    => new external_value(PARAM_ALPHA, 'File type (pdf, docx, txt, json, jpg, jpeg, png, gif, webp)'),
         ]);
     }
@@ -261,8 +260,7 @@ class extract_file extends external_api {
     public static function execute_returns(): external_single_structure {
         return new external_single_structure([
             'success'   => new external_value(PARAM_BOOL, 'Success status'),
-            'text'      => new external_value(PARAM_RAW,
-                'Extracted text content — PARAM_RAW required: may contain binary/base64 image data'),
+            'text'      => new external_value(PARAM_RAW, 'Extracted text content'),
             'truncated' => new external_value(PARAM_BOOL, 'Whether text was truncated', VALUE_DEFAULT, false),
             'canpaste'  => new external_value(PARAM_BOOL, 'Whether paste modal should be offered', VALUE_DEFAULT, false),
             'error'     => new external_value(PARAM_TEXT, 'Error message if any'),

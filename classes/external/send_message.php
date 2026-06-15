@@ -252,13 +252,13 @@ class send_message extends external_api {
         return new external_single_structure([
             'success'        => new external_value(PARAM_BOOL, 'Success status'),
             'error'          => new external_value(PARAM_TEXT, 'Error message if any'),
-            'response'       => new external_value(PARAM_RAW,
-                'Assistant response — PARAM_RAW required: Markdown content with arbitrary characters'),
+            'response'       => new external_value(PARAM_RAW, 'Assistant response (Markdown)'),
             'images'         => new \core_external\external_multiple_structure(
-                                    new external_value(PARAM_RAW,
-                                        'Image URL or base64 data-URI — PARAM_RAW required: binary base64 data'),
-                                    'Generated images', VALUE_DEFAULT, []
-                                ),
+                new external_value(PARAM_RAW, 'Image URL or base64 data-URI'),
+                'Generated images',
+                VALUE_DEFAULT,
+                []
+            ),
             'conversationid' => new external_value(PARAM_INT,  'Conversation ID'),
             'quota'          => new external_single_structure([
                 'allowed'   => new external_value(PARAM_BOOL, 'Whether user can send more messages'),
