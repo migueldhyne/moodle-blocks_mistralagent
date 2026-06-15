@@ -237,10 +237,14 @@ if ($ADMIN->fulltree) {
 
     $manageurl = new moodle_url('/blocks/mistralagent/agents.php');
     $managebutton = html_writer::div(
-        html_writer::link($manageurl, get_string('manageagents_link', 'block_mistralagent'), [
-            'class' => 'btn btn-secondary',
-            'style' => 'margin-bottom: 1.5rem;',
-        ]),
+        html_writer::link(
+            $manageurl,
+            get_string('manageagents_link', 'block_mistralagent'),
+            [
+                'class' => 'btn btn-secondary',
+                'style' => 'margin-bottom: 1.5rem;',
+            ]
+        ),
         'block-mistralagent-admin-actions mb-4 pb-2'
     );
     $settings->add(new admin_setting_description(

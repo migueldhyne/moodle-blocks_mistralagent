@@ -84,21 +84,27 @@ if (empty($users)) {
         $form = html_writer::start_tag('form', ['method' => 'post', 'class' => 'form-inline']);
         $form .= html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()]);
         $form .= html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'userid', 'value' => $user->id]);
-        $form .= html_writer::empty_tag('input', [
-            'type' => 'number',
-            'name' => 'limit',
-            'class' => 'form-control form-control-sm mr-2',
-            'style' => 'width: 80px;',
-            'value' => $quota['unlimited'] ? '' : $quota['limit'],
-            'placeholder' => '∞',
-            'min' => 0,
-        ]);
-        $form .= html_writer::empty_tag('input', [
-            'type' => 'submit',
-            'name' => 'save',
-            'value' => get_string('setquota', 'block_mistralagent'),
-            'class' => 'btn btn-sm btn-primary',
-        ]);
+        $form .= html_writer::empty_tag(
+            'input',
+            [
+                'type' => 'number',
+                'name' => 'limit',
+                'class' => 'form-control form-control-sm mr-2',
+                'style' => 'width: 80px;',
+                'value' => $quota['unlimited'] ? '' : $quota['limit'],
+                'placeholder' => '∞',
+                'min' => 0,
+            ]
+        );
+        $form .= html_writer::empty_tag(
+            'input',
+            [
+                'type' => 'submit',
+                'name' => 'save',
+                'value' => get_string('setquota', 'block_mistralagent'),
+                'class' => 'btn btn-sm btn-primary',
+            ]
+        );
         $form .= html_writer::end_tag('form');
 
         $table->data[] = [

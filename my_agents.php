@@ -88,9 +88,12 @@ if (optional_param('save_agent', false, PARAM_BOOL) && confirm_sesskey()) {
     }
 
     if (empty($apikey) || empty($agentid)) {
-        redirect($PAGE->url,
+        redirect(
+            $PAGE->url,
             get_string('custom_agent_missing', 'block_mistralagent'),
-            null, \core\output\notification::NOTIFY_ERROR);
+            null,
+            \core\output\notification::NOTIFY_ERROR
+        );
     }
 
     manager::set_instance_custom($blockinstanceid, $courseid, $apikey, $agentid, $agentname, $agentdesc);
@@ -153,9 +156,11 @@ if ($hassavedkey) {
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('my_agents_title', 'block_mistralagent'));
 
-echo html_writer::link($configureurl,
+echo html_writer::link(
+    $configureurl,
     '<i class="fa fa-arrow-left mr-1"></i>' . get_string('back', 'core'),
-    ['class' => 'btn btn-secondary mb-3']);
+    ['class' => 'btn btn-secondary mb-3']
+);
 
 echo '<p class="text-muted mb-4">' . get_string('my_agents_desc', 'block_mistralagent') . '</p>';
 
@@ -227,8 +232,11 @@ echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'blockinstan
 echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid', 'value' => $courseid]);
 
 echo html_writer::start_div('form-group row');
-echo html_writer::tag('label', get_string('own_apikey_label', 'block_mistralagent'),
-    ['class' => 'col-sm-3 col-form-label', 'for' => 'apikey-input']);
+echo html_writer::tag(
+    'label',
+    get_string('own_apikey_label', 'block_mistralagent'),
+    ['class' => 'col-sm-3 col-form-label', 'for' => 'apikey-input']
+);
 echo html_writer::start_div('col-sm-9');
 echo '<div class="input-group">';
 echo '<input type="password" name="apikey_input" id="apikey-input" class="form-control"'
@@ -275,12 +283,18 @@ if (!empty($fetchedagents)) {
     echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid', 'value' => $courseid]);
     // The key is NOT transmitted here — it is already saved for the user.
     echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'apikey', 'value' => '']);
-    echo html_writer::empty_tag('input',
-        ['type' => 'hidden', 'name' => 'custom_agent_id', 'id' => 'hidden-agent-id', 'value' => '']);
-    echo html_writer::empty_tag('input',
-        ['type' => 'hidden', 'name' => 'custom_agent_name', 'id' => 'hidden-agent-name', 'value' => '']);
-    echo html_writer::empty_tag('input',
-        ['type' => 'hidden', 'name' => 'custom_agent_desc', 'id' => 'hidden-agent-desc', 'value' => '']);
+    echo html_writer::empty_tag(
+        'input',
+        ['type' => 'hidden', 'name' => 'custom_agent_id', 'id' => 'hidden-agent-id', 'value' => '']
+    );
+    echo html_writer::empty_tag(
+        'input',
+        ['type' => 'hidden', 'name' => 'custom_agent_name', 'id' => 'hidden-agent-name', 'value' => '']
+    );
+    echo html_writer::empty_tag(
+        'input',
+        ['type' => 'hidden', 'name' => 'custom_agent_desc', 'id' => 'hidden-agent-desc', 'value' => '']
+    );
 
     echo '<div class="row">';
     foreach ($fetchedagents as $ag) {

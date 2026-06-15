@@ -223,16 +223,32 @@ if ($action === 'cleanup' && confirm_sesskey()) {
 
         if ($info['chunkcount'] > 0 && !$info['isvalid']) {
             $DB->delete_records('block_mistralagent_chunks', ['resourceid' => $resource->id]);
-            $DB->set_field('block_mistralagent_resources', 'status',
-                'error', ['id' => $resource->id]);
-            $DB->set_field('block_mistralagent_resources', 'error_message',
-                get_string('cleanup_invalid_content', 'block_mistralagent'), ['id' => $resource->id]);
+            $DB->set_field(
+                'block_mistralagent_resources',
+                'status',
+                'error',
+                ['id' => $resource->id]
+            );
+            $DB->set_field(
+                'block_mistralagent_resources',
+                'error_message',
+                get_string('cleanup_invalid_content', 'block_mistralagent'),
+                ['id' => $resource->id]
+            );
             $cleaned++;
         } else if ($resource->status === 'indexed' && $info['chunkcount'] === 0) {
-            $DB->set_field('block_mistralagent_resources', 'status',
-                'error', ['id' => $resource->id]);
-            $DB->set_field('block_mistralagent_resources', 'error_message',
-                get_string('cleanup_no_content', 'block_mistralagent'), ['id' => $resource->id]);
+            $DB->set_field(
+                'block_mistralagent_resources',
+                'status',
+                'error',
+                ['id' => $resource->id]
+            );
+            $DB->set_field(
+                'block_mistralagent_resources',
+                'error_message',
+                get_string('cleanup_no_content', 'block_mistralagent'),
+                ['id' => $resource->id]
+            );
             $cleaned++;
         }
     }
@@ -307,13 +323,21 @@ if ($action === 'manualtext' && $resourceid && confirm_sesskey()) {
     );
 
     if (empty($manualtext)) {
-        redirect($PAGE->url, get_string('emptytext', 'block_mistralagent'),
-            null, \core\output\notification::NOTIFY_ERROR);
+        redirect(
+            $PAGE->url,
+            get_string('emptytext', 'block_mistralagent'),
+            null,
+            \core\output\notification::NOTIFY_ERROR
+        );
     }
 
     if (!resource_manager::is_valid_content($manualtext)) {
-        redirect($PAGE->url, get_string('invalidtext', 'block_mistralagent'),
-            null, \core\output\notification::NOTIFY_ERROR);
+        redirect(
+            $PAGE->url,
+            get_string('invalidtext', 'block_mistralagent'),
+            null,
+            \core\output\notification::NOTIFY_ERROR
+        );
     }
 
     // Hard cap: 500 000 chars (~125 000 tokens).
@@ -327,7 +351,8 @@ if ($action === 'manualtext' && $resourceid && confirm_sesskey()) {
     } catch (\Exception $e) {
         $DB->set_field('block_mistralagent_resources', 'status', 'error', ['id' => $resourceid]);
         $DB->set_field('block_mistralagent_resources', 'error_message', $e->getMessage(), ['id' => $resourceid]);
-        redirect($PAGE->url,
+        redirect(
+            $PAGE->url,
             get_string('error') . ' : ' . $e->getMessage(),
             null,
             \core\output\notification::NOTIFY_ERROR
@@ -346,7 +371,8 @@ if ($action === 'upload' && confirm_sesskey()) {
 
         $newresourceid = resource_manager::add_resource($blockinstanceid, $courseid, 'url', $name, $url);
         $result        = resource_manager::process_resource($newresourceid);
-        redirect($PAGE->url,
+        redirect(
+            $PAGE->url,
             $result
                 ? get_string('resource_added', 'block_mistralagent')
                 : get_string('extraction_failed_use_json', 'block_mistralagent')
@@ -371,13 +397,21 @@ if ($action === 'upload' && confirm_sesskey()) {
         );
 
         if (empty($textcontent) || empty($name)) {
-            redirect($PAGE->url, get_string('name_and_content_required', 'block_mistralagent'),
-                null, \core\output\notification::NOTIFY_ERROR);
+            redirect(
+                $PAGE->url,
+                get_string('name_and_content_required', 'block_mistralagent'),
+                null,
+                \core\output\notification::NOTIFY_ERROR
+            );
         }
 
         if (!resource_manager::is_valid_content($textcontent)) {
-            redirect($PAGE->url, get_string('invalidtext', 'block_mistralagent'),
-                null, \core\output\notification::NOTIFY_ERROR);
+            redirect(
+                $PAGE->url,
+                get_string('invalidtext', 'block_mistralagent'),
+                null,
+                \core\output\notification::NOTIFY_ERROR
+            );
         }
 
         $newresourceid = resource_manager::add_resource($blockinstanceid, $courseid, 'txt', $name, 'manual');
@@ -390,8 +424,12 @@ if ($action === 'upload' && confirm_sesskey()) {
         $tmpname  = $_FILES['file']['tmp_name'] ?? '';
 
         if (empty($tmpname) || !is_uploaded_file($tmpname)) {
-            redirect($PAGE->url, get_string('upload_failed', 'block_mistralagent'),
-                null, \core\output\notification::NOTIFY_ERROR);
+            redirect(
+                $PAGE->url,
+                get_string('upload_failed', 'block_mistralagent'),
+                null,
+                \core\output\notification::NOTIFY_ERROR
+            );
         }
 
         // Verify magic bytes for binary types (pdf, docx).
@@ -435,15 +473,24 @@ if ($action === 'upload' && confirm_sesskey()) {
             $info = mistralagent_get_resource_info($newresourceid);
             if (!$info['isvalid'] && $info['chunkcount'] > 0) {
                 $DB->delete_records('block_mistralagent_chunks', ['resourceid' => $newresourceid]);
-                $DB->set_field('block_mistralagent_resources', 'status',
-                    'error', ['id' => $newresourceid]);
-                $DB->set_field('block_mistralagent_resources', 'error_message',
-                    get_string('extraction_invalid_content', 'block_mistralagent'), ['id' => $newresourceid]);
+                $DB->set_field(
+                    'block_mistralagent_resources',
+                    'status',
+                    'error',
+                    ['id' => $newresourceid]
+                );
+                $DB->set_field(
+                    'block_mistralagent_resources',
+                    'error_message',
+                    get_string('extraction_invalid_content', 'block_mistralagent'),
+                    ['id' => $newresourceid]
+                );
                 $result = false;
             }
         }
 
-        redirect($PAGE->url,
+        redirect(
+            $PAGE->url,
             $result
                 ? get_string('resource_added_success', 'block_mistralagent')
                 : get_string('extraction_failed_use_json', 'block_mistralagent'),
@@ -459,18 +506,23 @@ if ($action === 'upload' && confirm_sesskey()) {
 
 echo $OUTPUT->header();
 if ($notice === 'added') {
-    echo $OUTPUT->notification(get_string('resource_added_success', 'block_mistralagent'),
-        \core\output\notification::NOTIFY_SUCCESS);
+    echo $OUTPUT->notification(
+        get_string('resource_added_success', 'block_mistralagent'),
+        \core\output\notification::NOTIFY_SUCCESS
+    );
 } else if ($notice === 'failed') {
-    echo $OUTPUT->notification(get_string('extraction_failed_use_json', 'block_mistralagent'),
-        \core\output\notification::NOTIFY_WARNING);
+    echo $OUTPUT->notification(
+        get_string('extraction_failed_use_json', 'block_mistralagent'),
+        \core\output\notification::NOTIFY_WARNING
+    );
 }
 echo $OUTPUT->heading(get_string('manageresources', 'block_mistralagent'));
 
 // Cleanup button.
 $cleanupurl = new moodle_url($PAGE->url, ['action' => 'cleanup', 'sesskey' => sesskey()]);
 echo '<div class="mb-3">';
-echo html_writer::link($cleanupurl,
+echo html_writer::link(
+    $cleanupurl,
     '<i class="fa fa-broom" aria-hidden="true"></i> '
         . get_string('cleanup_button', 'block_mistralagent'),
     [
