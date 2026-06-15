@@ -13,11 +13,10 @@
 
     You should have received a copy of the GNU General Public License
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-}}
-{{!
+
     @template block_mistralagent/block
 
-    Block widget displaying the agent name, a chat button and admin action icons.
+    Block widget displaying the Mistral agent name, a chat button and admin action icons.
 
     Classes required for JS:
     * none
@@ -28,7 +27,7 @@
     Context variables required for this template:
     * agentname {string} Display name of the Mistral agent.
     * chatpageurl {string} URL to open the chat page.
-    * myconversationsurl {string} URL to the user's conversation history.
+    * myconversationsurl {string} URL to the user conversation history.
     * canconfig {boolean} Whether the current user can configure the block.
     * configureurl {string} URL to the block configuration page (only when canconfig is true).
     * resourcesurl {string} URL to the resource management page (only when canconfig is true).
@@ -94,5 +93,3 @@
     {{/agentdescription}}
 
 </div>
-
-

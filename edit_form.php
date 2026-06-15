@@ -102,17 +102,25 @@ class block_mistralagent_edit_form extends block_edit_form {
          * Per-field short help (shown below the select). Rendered as a small static HTML table so teachers can
          * see the exact values that will apply when they save their choice.
          */
-        $mform->addElement('static', 'config_preset_detail', '',
+        $mform->addElement(
+            'static',
+            'config_preset_detail',
+            '',
             get_string('config_preset_detail_intro', 'block_mistralagent')
         );
 
         // RAG chunk override.
         $globalmax = (int)(get_config('block_mistralagent', 'max_embedding_chunks') ?: 50);
 
-        $mform->addElement('header', 'config_rag_header',
-            get_string('config_rag_header', 'block_mistralagent'));
+        $mform->addElement(
+            'header',
+            'config_rag_header',
+            get_string('config_rag_header', 'block_mistralagent')
+        );
 
-        $mform->addElement('text', 'config_max_chunks',
+        $mform->addElement(
+            'text',
+            'config_max_chunks',
             get_string('config_max_chunks', 'block_mistralagent'),
             ['size' => 5]
         );
@@ -120,13 +128,19 @@ class block_mistralagent_edit_form extends block_edit_form {
         $mform->setDefault('config_max_chunks', 0);
         $mform->addHelpButton('config_max_chunks', 'config_max_chunks', 'block_mistralagent');
 
-        $mform->addElement('static', 'config_max_chunks_hint', '',
+        $mform->addElement(
+            'static',
+            'config_max_chunks_hint',
+            '',
             get_string('config_max_chunks_hint', 'block_mistralagent', $globalmax)
         );
 
-        $mform->addRule('config_max_chunks',
+        $mform->addRule(
+            'config_max_chunks',
             get_string('config_max_chunks_invalid', 'block_mistralagent'),
-            'regex', '/^[0-9]*$/', 'client'
+            'regex',
+            '/^[0-9]*$/',
+            'client'
         );
     }
 
@@ -147,10 +161,10 @@ class block_mistralagent_edit_form extends block_edit_form {
         $colours = ['light' => '#d4edda', 'standard' => '#fff3cd', 'full' => '#f8d7da'];
 
         $headers = [
-            get_string('preset_col_history_chars',    'block_mistralagent'),
+            get_string('preset_col_history_chars', 'block_mistralagent'),
             get_string('preset_col_filecontent_chars', 'block_mistralagent'),
-            get_string('preset_col_rag_chunks',        'block_mistralagent'),
-            get_string('preset_col_history_messages',  'block_mistralagent'),
+            get_string('preset_col_rag_chunks', 'block_mistralagent'),
+            get_string('preset_col_history_messages', 'block_mistralagent'),
         ];
 
         $html  = '<div class="alert alert-info mb-3">';
@@ -181,10 +195,10 @@ class block_mistralagent_edit_form extends block_edit_form {
 
         // Consequence explanations below the table.
         $html .= '<ul class="mt-2 mb-0" style="font-size:.85rem">';
-        $html .= '<li>' . get_string('config_consequence_history_chars',    'block_mistralagent') . '</li>';
+        $html .= '<li>' . get_string('config_consequence_history_chars', 'block_mistralagent') . '</li>';
         $html .= '<li>' . get_string('config_consequence_filecontent_chars', 'block_mistralagent') . '</li>';
-        $html .= '<li>' . get_string('config_consequence_rag_chunks',        'block_mistralagent') . '</li>';
-        $html .= '<li>' . get_string('config_consequence_history_messages',  'block_mistralagent') . '</li>';
+        $html .= '<li>' . get_string('config_consequence_rag_chunks', 'block_mistralagent') . '</li>';
+        $html .= '<li>' . get_string('config_consequence_history_messages', 'block_mistralagent') . '</li>';
         $html .= '</ul>';
 
         $html .= '</div>';
@@ -208,8 +222,11 @@ class block_mistralagent_edit_form extends block_edit_form {
         $chosenidx = array_search($chosen, $order);
 
         if ($chosenidx === false || $chosenidx > $maxindex) {
-            $errors['config_preset'] = get_string('preset_exceeds_max', 'block_mistralagent',
-                get_string('preset_' . $maxpreset, 'block_mistralagent'));
+            $errors['config_preset'] = get_string(
+                'preset_exceeds_max',
+                'block_mistralagent',
+                get_string('preset_' . $maxpreset, 'block_mistralagent')
+            );
         }
 
         return $errors;
