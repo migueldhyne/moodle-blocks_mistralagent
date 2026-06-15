@@ -184,11 +184,14 @@ $PAGE->requires->string_for_js('confirm', 'core');
 $PAGE->requires->string_for_js('back', 'core');
 
 // Only courseid and conversationid in the AMD payload (~60 chars).
-$PAGE->requires->js_call_amd('block_mistralagent/chat', 'init', [[
-    'blockinstanceid' => (int)$blockinstanceid,
-    'courseid'       => (int)$courseid,
-    'conversationid' => (int)$currentconvid,
-]]);
+$amdparams = [
+    [
+        'blockinstanceid' => (int)$blockinstanceid,
+        'courseid'       => (int)$courseid,
+        'conversationid' => (int)$currentconvid,
+    ],
+];
+$PAGE->requires->js_call_amd('block_mistralagent/chat', 'init', $amdparams);
 
 // Output.
 echo $OUTPUT->header();

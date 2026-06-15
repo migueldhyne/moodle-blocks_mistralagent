@@ -87,18 +87,11 @@ class block_mistralagent_edit_form extends block_edit_form {
         $mform->addElement('html', $summarytable);
 
         // Preset selector.
-        $mform->addElement(
-            'header',
-            'config_header',
-            get_string('instanceconfig_header', 'block_mistralagent')
-        );
+        $instanceconfigheader = get_string('instanceconfig_header', 'block_mistralagent');
+        $mform->addElement('header', 'config_header', $instanceconfigheader);
 
-        $mform->addElement(
-            'select',
-            'config_preset',
-            get_string('config_preset', 'block_mistralagent'),
-            $allowedoptions
-        );
+        $configpresetlabel = get_string('config_preset', 'block_mistralagent');
+        $mform->addElement('select', 'config_preset', $configpresetlabel, $allowedoptions);
         $mform->setDefault('config_preset', 'standard');
         $mform->addHelpButton('config_preset', 'config_preset', 'block_mistralagent');
 
@@ -106,46 +99,26 @@ class block_mistralagent_edit_form extends block_edit_form {
          * Per-field short help (shown below the select). Rendered as a small static HTML table so teachers can
          * see the exact values that will apply when they save their choice.
          */
-        $mform->addElement(
-            'static',
-            'config_preset_detail',
-            '',
-            get_string('config_preset_detail_intro', 'block_mistralagent')
-        );
+        $configpresetdetail = get_string('config_preset_detail_intro', 'block_mistralagent');
+        $mform->addElement('static', 'config_preset_detail', '', $configpresetdetail);
 
         // RAG chunk override.
         $globalmax = (int)(get_config('block_mistralagent', 'max_embedding_chunks') ?: 50);
 
-        $mform->addElement(
-            'header',
-            'config_rag_header',
-            get_string('config_rag_header', 'block_mistralagent')
-        );
+        $configragheader = get_string('config_rag_header', 'block_mistralagent');
+        $mform->addElement('header', 'config_rag_header', $configragheader);
 
-        $mform->addElement(
-            'text',
-            'config_max_chunks',
-            get_string('config_max_chunks', 'block_mistralagent'),
-            ['size' => 5]
-        );
+        $configmaxchunkslabel = get_string('config_max_chunks', 'block_mistralagent');
+        $mform->addElement('text', 'config_max_chunks', $configmaxchunkslabel, ['size' => 5]);
         $mform->setType('config_max_chunks', PARAM_INT);
         $mform->setDefault('config_max_chunks', 0);
         $mform->addHelpButton('config_max_chunks', 'config_max_chunks', 'block_mistralagent');
 
-        $mform->addElement(
-            'static',
-            'config_max_chunks_hint',
-            '',
-            get_string('config_max_chunks_hint', 'block_mistralagent', $globalmax)
-        );
+        $configmaxchunkshint = get_string('config_max_chunks_hint', 'block_mistralagent', $globalmax);
+        $mform->addElement('static', 'config_max_chunks_hint', '', $configmaxchunkshint);
 
-        $mform->addRule(
-            'config_max_chunks',
-            get_string('config_max_chunks_invalid', 'block_mistralagent'),
-            'regex',
-            '/^[0-9]*$/',
-            'client'
-        );
+        $configmaxchunksinvalid = get_string('config_max_chunks_invalid', 'block_mistralagent');
+        $mform->addRule('config_max_chunks', $configmaxchunksinvalid, 'regex', '/^[0-9]*$/', 'client');
     }
 
     /**

@@ -736,8 +736,10 @@ if (empty($resources)) {
         );
 
         // Paste text (shown when resource is in error or has invalid content).
-        if (in_array($r->status, ['error', 'processing'], true)
-                || ($r->status === 'indexed' && !$info['isvalid'])) {
+        if (
+            in_array($r->status, ['error', 'processing'], true)
+            || ($r->status === 'indexed' && !$info['isvalid'])
+        ) {
             $rname     = s(addslashes($r->name));
             $actions[] = '<button class="btn btn-sm btn-outline-success"'
                 . ' onclick="mistralagentShowModal(' . (int)$r->id . ',\'' . $rname . '\')"'
